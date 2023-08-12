@@ -65,6 +65,8 @@ git --version
 echo "[+] Enable git lfs"
 git lfs install
 
+git config --global --add safe.directory /github/workspace
+
 echo "[+] Checking if source branch $SOURCE_BRANCH exists"
 
 if [ ! -z "$SOURCE_BRANCH" ]; then
