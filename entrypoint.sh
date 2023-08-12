@@ -136,6 +136,8 @@ then
 	exit 1
 fi
 
+echo "[+] Checking if source branch $SOURCE_BRANCH exists"
+
 if [ ! -z "$SOURCE_BRANCH" ]; then
     WORKING_DIR=$(pwd)
 
