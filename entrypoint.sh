@@ -68,15 +68,13 @@ git lfs install
 echo "[+] Checking if source branch $SOURCE_BRANCH exists"
 
 if [ ! -z "$SOURCE_BRANCH" ]; then
-    WORKING_DIR=$(pwd)
-
     cd "$SOURCE_DIRECTORY"
 
     # Checkout the desired branch
     echo "[+] Checking out source branch $SOURCE_BRANCH"
     git checkout "$SOURCE_BRANCH"
 
-    cd "$WORKING_DIR"
+    cd -
 fi
 
 echo "[+] Cloning destination git repository $DESTINATION_REPOSITORY_NAME"
