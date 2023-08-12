@@ -65,6 +65,20 @@ git --version
 echo "[+] Enable git lfs"
 git lfs install
 
+echo "[+] Checking if source branch $SOURCE_BRANCH exists"
+
+if [ ! -z "$SOURCE_BRANCH" ]; then
+    WORKING_DIR=$(pwd)
+
+    cd "$SOURCE_DIRECTORY"
+
+    # Checkout the desired branch
+    echo "[+] Checking out source branch $SOURCE_BRANCH"
+    git checkout "$SOURCE_BRANCH"
+
+    cd "$WORKING_DIR"
+fi
+
 echo "[+] Cloning destination git repository $DESTINATION_REPOSITORY_NAME"
 
 # Setup git
@@ -134,20 +148,6 @@ then
 	echo "in a previous step in the same build section. For example using"
 	echo "actions/checkout@v2. See: https://github.com/cpina/push-to-another-repository-example/blob/main/.github/workflows/ci.yml#L16"
 	exit 1
-fi
-
-echo "[+] Checking if source branch $SOURCE_BRANCH exists"
-
-if [ ! -z "$SOURCE_BRANCH" ]; then
-    WORKING_DIR=$(pwd)
-
-    cd "$SOURCE_DIRECTORY"
-
-    # Checkout the desired branch
-    echo "[+] Checking out source branch $SOURCE_BRANCH"
-    git checkout "$SOURCE_BRANCH"
-
-    cd "$WORKING_DIR"
 fi
 
 echo "[+] Copying contents of source repository folder $SOURCE_DIRECTORY to folder $TARGET_DIRECTORY in git repo $DESTINATION_REPOSITORY_NAME"
