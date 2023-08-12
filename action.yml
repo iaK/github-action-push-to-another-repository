@@ -9,6 +9,10 @@ inputs:
   source-directory:
     description: Source directory from the origin directory
     required: true
+  source-branch:
+    description: Source branch from the origin directory
+    default: ''
+    required: false
   destination-github-username:
     description: Name of the destination username/organization
     required: true
@@ -61,6 +65,7 @@ runs:
   args:
     - '${{ inputs.source-before-directory }}'
     - '${{ inputs.source-directory }}'
+    - '${{ inputs.source-branch }}'
     - '${{ inputs.destination-github-username }}'
     - '${{ inputs.destination-repository-name }}'
     - '${{ inputs.github-server }}'

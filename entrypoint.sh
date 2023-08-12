@@ -6,16 +6,17 @@ set -u  # script fails if trying to access to an undefined variable
 echo "[+] Action start"
 SOURCE_BEFORE_DIRECTORY="${1}"
 SOURCE_DIRECTORY="${2}"
-DESTINATION_GITHUB_USERNAME="${3}"
-DESTINATION_REPOSITORY_NAME="${4}"
-GITHUB_SERVER="${5}"
-USER_EMAIL="${6}"
-USER_NAME="${7}"
-DESTINATION_REPOSITORY_USERNAME="${8}"
-TARGET_BRANCH="${9}"
-COMMIT_MESSAGE="${10}"
-TARGET_DIRECTORY="${11}"
-CREATE_TARGET_BRANCH_IF_NEEDED="${12}"
+SOURCE_BRANCH="${3}"
+DESTINATION_GITHUB_USERNAME="${4}"
+DESTINATION_REPOSITORY_NAME="${5}"
+GITHUB_SERVER="${6}"
+USER_EMAIL="${7}"
+USER_NAME="${8}"
+DESTINATION_REPOSITORY_USERNAME="${9}"
+TARGET_BRANCH="${10}"
+COMMIT_MESSAGE="${11}"
+TARGET_DIRECTORY="${12}"
+CREATE_TARGET_BRANCH_IF_NEEDED="${13}"
 
 if [ -z "$DESTINATION_REPOSITORY_USERNAME" ]
 then
@@ -133,6 +134,18 @@ then
 	echo "in a previous step in the same build section. For example using"
 	echo "actions/checkout@v2. See: https://github.com/cpina/push-to-another-repository-example/blob/main/.github/workflows/ci.yml#L16"
 	exit 1
+fi
+
+if [ ! -z "$SOURCE_BRANCH" ]; then
+    WORKING_DIR=$(pwd)
+
+    cd "$SOURCE_DIRECTORY"
+
+    # Checkout the desired branch
+    echo "[+] Checking out source branch $SOURCE_BRANCH"
+    git checkout "$SOURCE_BRANCH"
+
+    cd "$WORKING_DIR"
 fi
 
 echo "[+] Copying contents of source repository folder $SOURCE_DIRECTORY to folder $TARGET_DIRECTORY in git repo $DESTINATION_REPOSITORY_NAME"
